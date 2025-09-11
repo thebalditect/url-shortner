@@ -1,0 +1,18 @@
+@startuml context-url-shortener
+!includeurl https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
+
+Person(user, "End User", "Uses browser or mobile app to create and follow short links")
+Person(admin, "Admin", "Manages URLs, views analytics")
+System_Boundary(ss, "URL Shortener System") {
+  System(api, "URL Shortener API", "Public HTTP API to create and access short URLs")
+  SystemDb(db, "PostgreSQL", "Primary persistence for URLs and metadata")
+  System(redis, "Redis", "Cache and rate-limiting store")
+}
+
+Rel(user, api, "POST /v1/shorten\nGET /{short_code}", "HTTP/JSON / HTTP redirect")
+Rel(admin, api, "GET /v1/urls\nDELETE /v1/urls/{code}", "HTTP/JSON (auth)")
+Rel(api, db, "Reads/Writes", "SQL (async)")
+Rel(api, redis, "Reads/Writes (cache/rate limit)", "TCP")
+
+SHOW_LEGEND()
+@enduml

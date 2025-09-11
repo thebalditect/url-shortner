@@ -1,0 +1,23 @@
+@startuml container-url-shortener
+!includeurl https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+Person(user, "End User", "Uses browser/mobile app")
+Person(admin, "Admin", "Admin UI / API client")
+
+System_Boundary(system, "URL Shortener") {
+  Container(api_app, "FastAPI App", "Python + FastAPI", "Exposes REST API; handles shorten/redirect and admin endpoints")
+  Container(db, "PostgreSQL", "Postgres", "Stores URLs, metadata, and optional clicks")
+  Container(redis, "Redis", "Redis", "Cache mapping short_code -> target_url; rate limiting and queues")
+  Container(proxy, "Reverse Proxy / LB", "NGINX / Traefik", "TLS termination, routing, caching")
+  Container(monitor, "Monitoring / Metrics", "Prometheus / Grafana", "Collects metrics and alerts")
+}
+
+Rel(user, proxy, "HTTPS", "TLS")
+Rel(proxy, api_app, "HTTP", "Forward requests (keepalive)")
+Rel(api_app, db, "Reads/Writes", "SQL async (asyncpg)")
+Rel(api_app, redis, "Cache / Rate-limit lookup / enqueue", "TCP")
+Rel(admin, api_app, "HTTPS (authenticated)", "HTTP/JSON")
+Rel(api_app, monitor, "Exposes /metrics", "Prometheus scrape")
+
+SHOW_LEGEND()
+@enduml

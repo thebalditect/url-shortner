@@ -1,0 +1,28 @@
+@startuml deployment-url-shortener
+!includeurl https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Deployment.puml
+
+Node(k8s, "Kubernetes Cluster", "Orchestration") {
+  Node(ingress_ns, "Ingress", "namespace") {
+    Container(ingress, "Ingress Controller", "Traefik/nginx", "TLS termination, routing")
+  }
+
+  Node(app_ns, "App", "namespace") {
+    Node(pod_api, "api-pod (replica set)", "Pod", "FastAPI app") {
+      Container(api, "FastAPI container", "uvicorn/gunicorn", "Handles HTTP requests")
+    }
+  }
+
+  Node(infra_ns, "Infrastructure") {
+    Container(db, "Postgres StatefulSet", "PostgreSQL", "Persistent volume claim")
+    Container(redis, "Redis StatefulSet", "Redis", "Cache, rate-limiting")
+    Container(prom, "Prometheus", "Monitoring", "Scrapes /metrics")
+  }
+}
+
+Rel(ingress, api, "HTTP")
+Rel(api, db, "SQL")
+Rel(api, redis, "Redis")
+Rel(prom, api, "Scrape /metrics")
+
+SHOW_LEGEND()
+@enduml
