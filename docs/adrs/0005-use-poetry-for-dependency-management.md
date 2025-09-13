@@ -13,19 +13,19 @@ Accepted
 We need to decide how to manage dependencies for the URL Shortener project.  
 Two main options were considered:
 
-* **requirements.txt (pip)**  
-   - The traditional Python way of declaring dependencies.  
-   - Widely supported, simple to use.  
-   - Requires manual or external tooling (e.g., pip-tools) for dependency resolution and lock files.  
-   - Managing multiple environments (dev, test, prod) requires multiple files.  
+* **requirements.txt (pip)**
+
+  * The traditional Python way of declaring dependencies.  
+  * Widely supported, simple to use.  
+  * Requires manual or external tooling (e.g., pip-tools) for dependency resolution and lock files.  
+  * Managing multiple environments (dev, test, prod) requires multiple files.  
 
 * **Poetry (pyproject.toml)**  
-   - A modern dependency and packaging manager for Python.  
-   - Handles dependency resolution and generates a lock file automatically.  
-   - Supports dependency groups (dev/test/prod) natively.  
-   - Provides commands for virtual environment management, building, and publishing.  
-   - Slightly more setup overhead, but better for long-term maintainability.  
-
+  * A modern dependency and packaging manager for Python.  
+  * Handles dependency resolution and generates a lock file automatically.  
+  * Supports dependency groups (dev/test/prod) natively.  
+  * Provides commands for virtual environment management, building, and publishing.  
+  * Slightly more setup overhead, but better for long-term maintainability.  
 
 ## Decision
 
@@ -34,12 +34,14 @@ Additionally, for Docker and CI/CD compatibility, we will export a `requirements
 
 ## Consequences
 
-**Positive**
-- **Reproducible builds** with `poetry.lock`.  
-- **Simpler management of dev/test/prod dependencies** via groups.  
-- **Automatic dependency resolution** avoids version conflicts.  
-- Easier onboarding and long-term maintainability for a growing project.  
+### Positive
 
-**Negative**
-- Adds a layer of tooling not always preinstalled in minimal environments.  
-- Requires exporting `requirements.txt` for Docker, adding a minor step.  
+* **Reproducible builds** with `poetry.lock`.  
+* **Simpler management of dev/test/prod dependencies** via groups.  
+* **Automatic dependency resolution** avoids version conflicts.  
+* Easier onboarding and long-term maintainability for a growing project.  
+
+### Negative
+
+* Adds a layer of tooling not always preinstalled in minimal environments.  
+* Requires exporting `requirements.txt` for Docker, adding a minor step.  

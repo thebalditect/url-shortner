@@ -35,7 +35,7 @@ We will adopt Conventional Commits as the commit message format, enforced locall
 
 ## Consequences
 
-**Positive**
+### Positive
 
 * Commit history is structured and readable.
 
@@ -45,7 +45,7 @@ We will adopt Conventional Commits as the commit message format, enforced locall
 
 * CI provides an additional safety net.
 
-**Negative**
+### Negative
 
 * Developers need Node.js installed to run Husky + Commitlint locally.
 

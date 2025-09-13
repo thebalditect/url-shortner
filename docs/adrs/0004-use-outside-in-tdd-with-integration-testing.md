@@ -36,7 +36,7 @@ We will use Outside-In Testing with Integration Tests as our primary approach. E
 
 ## Consequences
 
-**Positive**
+### Positive
 
 * **Confidence in correctness**: ensures APIs behave as expected before focusing on internals.
 
@@ -46,11 +46,10 @@ We will use Outside-In Testing with Integration Tests as our primary approach. E
 
 * Catches integration bugs early (e.g., DB mappings, request validation, dependency wiring).
 
-**Negative**
+### Negative
 
 * Slower test runs compared to unit-only strategies.
 
 * May require managing test database state carefully (fixtures, migrations, transaction rollbacks).
 
 * Overhead in setting up containerized test environments for full realism.
-

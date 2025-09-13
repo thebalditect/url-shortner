@@ -9,6 +9,7 @@ Author: Mandar Dharmadhikari
 Accepted
 
 ## Context
+
 We need to expose a public API for the URL shortener service. Two primary choices are:  
 
 1. **REST over HTTP with JSON** (implemented via FastAPI)  
@@ -16,13 +17,15 @@ We need to expose a public API for the URL shortener service. Two primary choice
 
 Both are widely used approaches, but they serve slightly different purposes. REST/JSON is the de facto standard for public APIs, while gRPC excels in microservice-to-microservice communication.  
 
-Key considerations include:  
+Key considerations include:
+
 - **Target audience**: Our clients include browsers, mobile apps, and potential third-party integrators. These consumers expect JSON/HTTP APIs.  
 - **Ease of adoption**: JSON + REST is universally understood. gRPC requires code generation and specific client libraries.  
 - **Tooling**: REST APIs automatically integrate with Swagger/OpenAPI for docs and testing. gRPC lacks widely adopted interactive documentation tools.  
 - **Performance**: gRPC is more efficient for high-throughput internal services, but performance is not currently a bottleneck for this system.  
 
 ## Decision
+
 We will use **REST over HTTP with JSON** as the API style, implemented with **FastAPI**.  
 
 - REST endpoints provide predictable, resource-oriented URLs.  
@@ -32,18 +35,21 @@ We will use **REST over HTTP with JSON** as the API style, implemented with **Fa
 
 ## Consequences
 
-**Positive**
+### Positive
+
 - Lower learning curve for contributors and consumers.  
 - Built-in, auto-generated Swagger UI for documentation.  
 - Simple integration with browsers, cURL, Postman, and mobile apps.  
 - Faster time-to-market.  
 
-**Negative**
+### Negative
+
 - Slightly larger payloads than Protobuf.  
 - Less efficient for high-volume internal traffic.  
-- Not as strongly typed as gRPC contracts.    
+- Not as strongly typed as gRPC contracts.
 
 ## References
+
 - [FastAPI](https://fastapi.tiangolo.com/)  
 - [gRPC](https://grpc.io/)  
 - [Conventional wisdom: REST for external APIs, gRPC for internal microservices](https://cloud.google.com/apis/design)  
