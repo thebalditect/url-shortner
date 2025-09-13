@@ -6,7 +6,7 @@ authors = ["Codidharma - Mandar Dharmadhikari <codidharma@gmail.com>"]
 license = "MIT"
 readme = "README.md"
 packages = [{ include = "app" }]
-python = ">=3.12"
+
 
 [tool.poetry.dependencies]
 python = ">=3.12"
