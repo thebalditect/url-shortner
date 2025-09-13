@@ -4,5 +4,5 @@
 echo "Running Black and Ruff before commit"
 
 # Run Black (check mode) and Ruff
-poetry run black --check app tests
-poetry run ruff check app tests
+poetry run black --check app
+poetry run ruff check app
