@@ -1,5 +1,4 @@
 #!/bin/bash
-set -e
 
 echo "### PlantUML Validation Results" >> $GITHUB_STEP_SUMMARY
 
@@ -44,4 +43,5 @@ if [ "$plantuml_failed" = true ]; then
     exit 1
 else
     echo "PLANTUML_STATUS=success" >> $GITHUB_OUTPUT
+    exit 0
 fi

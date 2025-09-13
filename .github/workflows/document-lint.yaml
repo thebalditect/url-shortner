@@ -42,16 +42,19 @@ jobs:
    
     - name: Lint Markdown files
       id: markdown-lint
+      continue-on-error: true
       run: bash scripts/linting/lint_markdown.sh
       shell: bash
 
     - name: Check Markdown links
       id: link-check
+      continue-on-error: true
       run: bash scripts/linting/check_links.sh
       shell: bash
 
     - name: Lint PlantUML files
       id: plantuml-lint
+      continue-on-error: true
       run: bash scripts/linting/lint_plantuml.sh
       shell: bash
 

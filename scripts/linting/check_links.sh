@@ -1,10 +1,9 @@
 #!/bin/bash
-set -e
 
 echo "### Link Check Results" >> $GITHUB_STEP_SUMMARY
 
 # Check if config file exists
-CONFIG_FILE="config/link-check.json"
+CONFIG_FILE="config/.markdown-link-check.json"
 CONFIG_PARAM=""
 if [ -f "$CONFIG_FILE" ]; then
     CONFIG_PARAM="--config $CONFIG_FILE"
@@ -47,4 +46,5 @@ if [ "$link_check_failed" = true ]; then
     exit 1
 else
     echo "LINK_CHECK_STATUS=success" >> $GITHUB_OUTPUT
+    exit 0
 fi

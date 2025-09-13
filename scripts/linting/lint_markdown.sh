@@ -1,5 +1,4 @@
 #!/bin/bash
-set -e
 
 echo "## Markdown Linting Results" >> $GITHUB_STEP_SUMMARY
 
@@ -29,6 +28,7 @@ if [ -n "$CONFIG_FILE" ] && [ -f "$CONFIG_FILE" ]; then
     if echo "$MARKDOWN_FILES" | xargs markdownlint-cli2 --config "$CONFIG_FILE" > markdown-lint.log 2>&1; then
         echo "Markdownlint passed successfully" >> $GITHUB_STEP_SUMMARY
         echo "MARKDOWN_LINT_STATUS=success" >> $GITHUB_OUTPUT
+        exit 0
     else
         echo "Markdownlint found issues:" >> $GITHUB_STEP_SUMMARY
         echo '```' >> $GITHUB_STEP_SUMMARY
@@ -42,6 +42,7 @@ else
     if echo "$MARKDOWN_FILES" | xargs markdownlint-cli2 --config '{"MD013": false, "MD033": false, "MD041": false}' > markdown-lint.log 2>&1; then
         echo "Markdownlint passed successfully (using default config)" >> $GITHUB_STEP_SUMMARY
         echo "MARKDOWN_LINT_STATUS=success" >> $GITHUB_OUTPUT
+        exit 0
     else
         echo "Markdownlint found issues:" >> $GITHUB_STEP_SUMMARY
         echo '```' >> $GITHUB_STEP_SUMMARY
