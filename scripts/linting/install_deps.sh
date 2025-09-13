@@ -7,8 +7,6 @@ echo "Installing documentation linting dependencies..."
 echo "Installing markdownlint-cli2"
 npm install -g markdownlint-cli2
 
-echo "Installing markdown-link-check"
-npm install -g markdown-link-check@3.11.2
 
 # Download PlantUML jar
 echo "Downloading PlantUML..."

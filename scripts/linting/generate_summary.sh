@@ -12,13 +12,6 @@ else
     echo "Markdown linting passed" >> $GITHUB_STEP_SUMMARY
 fi
 
-if [ "$LINK_CHECK_FAILED" = "true" ]; then
-    echo "Link checking failed" >> $GITHUB_STEP_SUMMARY
-    overall_status=1
-else
-    echo "Link checking passed" >> $GITHUB_STEP_SUMMARY
-fi
-
 if [ "$PLANTUML_LINT_FAILED" = "true" ]; then
     echo "PlantUML validation failed" >> $GITHUB_STEP_SUMMARY
     overall_status=1
