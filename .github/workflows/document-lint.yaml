@@ -37,7 +37,7 @@ jobs:
         java-version: '11'
 
     - name: Install dependencies
-      run: bash scripts\linting\install_deps.sh
+      run: bash scripts/linting/install_deps.sh
       shell: bash
     # - name: Lint Markdown files
     #   id: markdown-lint
