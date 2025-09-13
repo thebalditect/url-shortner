@@ -11,7 +11,7 @@ on:
     paths:
       - 'README.md'
       - 'docs/**'
-
+  workflow_dispatch:
 jobs:
   lint-documentation:
     runs-on: ubuntu-latest
@@ -43,7 +43,7 @@ jobs:
         else
           echo "Warning: scripts/linting/install-deps.sh not found, using default installation"
           npm install -g markdownlint-cli2 markdown-link-check
-          wget -O plantuml.jar https://github.com/plantuml/plantuml/releases/latest/download/plantuml-1.2024.7.jar
+          wget -O plantuml.jar https://github.com/plantuml/plantuml/releases/latest/download/plantuml.jar
         fi
 
     - name: Lint Markdown files

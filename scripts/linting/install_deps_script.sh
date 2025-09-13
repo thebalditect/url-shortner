@@ -13,7 +13,7 @@ npm install -g markdown-link-check
 # Download PlantUML jar
 echo "Downloading PlantUML..."
 if [ ! -f "plantuml.jar" ]; then
-    wget -O plantuml.jar https://github.com/plantuml/plantuml/releases/latest/download/plantuml-1.2024.7.jar
+    wget -O plantuml.jar https://github.com/plantuml/plantuml/releases/latest/download/plantuml.jar
     echo "PlantUML downloaded successfully"
 else
     echo "PlantUML jar already exists"
