@@ -1,5 +1,6 @@
 #!/bin/bash
 
+
 echo "## Markdown Linting Results" >> $GITHUB_STEP_SUMMARY
 
 # Check if config file exists, otherwise use default
@@ -35,6 +36,7 @@ if [ -n "$CONFIG_FILE" ] && [ -f "$CONFIG_FILE" ]; then
         cat markdown-lint.log >> $GITHUB_STEP_SUMMARY
         echo '```' >> $GITHUB_STEP_SUMMARY
         echo "MARKDOWN_LINT_STATUS=failure" >> $GITHUB_OUTPUT
+        echo "MARKDOWN_LINT_FAILED=true" >> $GITHUB_ENV
         exit 1
     fi
 else
@@ -49,6 +51,7 @@ else
         cat markdown-lint.log >> $GITHUB_STEP_SUMMARY
         echo '```' >> $GITHUB_STEP_SUMMARY
         echo "MARKDOWN_LINT_STATUS=failure" >> $GITHUB_OUTPUT
+        echo "MARKDOWN_LINT_FAILED=true" >> $GITHUB_ENV
         exit 1
     fi
 fi

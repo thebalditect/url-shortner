@@ -1,11 +1,13 @@
 #!/bin/bash
 
+
 echo "### PlantUML Validation Results" >> $GITHUB_STEP_SUMMARY
 
 # Check if PlantUML jar exists
 if [ ! -f "plantuml.jar" ]; then
     echo "PlantUML jar not found. Please run install-deps.sh first." >> $GITHUB_STEP_SUMMARY
     echo "PLANTUML_STATUS=failure" >> $GITHUB_OUTPUT
+    echo "PLANTUML_LINT_FAILED=true" >> $GITHUB_ENV
     exit 1
 fi
 
@@ -40,6 +42,7 @@ done
 
 if [ "$plantuml_failed" = true ]; then
     echo "PLANTUML_STATUS=failure" >> $GITHUB_OUTPUT
+    echo "PLANTUML_LINT_FAILED=true" >> $GITHUB_ENV
     exit 1
 else
     echo "PLANTUML_STATUS=success" >> $GITHUB_OUTPUT

@@ -1,5 +1,6 @@
 #!/bin/bash
 
+
 echo "### Link Check Results" >> $GITHUB_STEP_SUMMARY
 
 # Check if config file exists
@@ -43,6 +44,7 @@ done
 
 if [ "$link_check_failed" = true ]; then
     echo "LINK_CHECK_STATUS=failure" >> $GITHUB_OUTPUT
+    echo "LINK_CHECK_FAILED=true" >> $GITHUB_ENV
     exit 1
 else
     echo "LINK_CHECK_STATUS=success" >> $GITHUB_OUTPUT
