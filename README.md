@@ -6,3 +6,6 @@ This repository uses the conventional commits. Read more about it at [ADR: Use C
 
 # ADR Script
 The git repository makes use of Architectural Decision Records and uses a script to auto number an ADR. Read more about it at [ADR Script](/docs/adr_readme.md)
+
+# Linting
+This project performs a linting process on the documentation uploaded to the docs folder.
