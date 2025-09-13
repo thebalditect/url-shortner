@@ -38,8 +38,8 @@ jobs:
 
     - name: Install dependencies
       run: |
-        if [ -f "scripts/linting/install-deps.sh" ]; then
-          chmod +x scripts/linting/install-deps.sh
+        if [ -f "./scripts/linting/install-deps.sh" ]; then
+          chmod +x ./scripts/linting/install-deps.sh
           ./scripts/linting/install-deps.sh
         else
           echo "Warning: scripts/linting/install-deps.sh not found, using default installation"
@@ -50,8 +50,8 @@ jobs:
     - name: Lint Markdown files
       id: markdown-lint
       run: |
-        if [ -f "scripts/linting/lint-markdown.sh" ]; then
-          chmod +x scripts/linting/lint-markdown.sh
+        if [ -f "./scripts/linting/lint-markdown.sh" ]; then
+          chmod +x ./scripts/linting/lint-markdown.sh
           ./scripts/linting/lint-markdown.sh
         else
           echo "Error: scripts/linting/lint-markdown.sh not found"
@@ -61,33 +61,33 @@ jobs:
     - name: Check Markdown links
       id: link-check
       run: |
-        if [ -f "scripts/linting/check-links.sh" ]; then
-          chmod +x scripts/linting/check-links.sh
+        if [ -f "./scripts/linting/check-links.sh" ]; then
+          chmod +x ./scripts/linting/check-links.sh
           ./scripts/linting/check-links.sh
         else
-          echo "Error: scripts/linting/check-links.sh not found"
+          echo "Error: ./scripts/linting/check-links.sh not found"
           exit 1
         fi
 
     - name: Lint PlantUML files
       id: plantuml-lint
       run: |
-        if [ -f "scripts/linting/lint-plantuml.sh" ]; then
-          chmod +x scripts/linting/lint-plantuml.sh
+        if [ -f "./scripts/linting/lint-plantuml.sh" ]; then
+          chmod +x ./scripts/linting/lint-plantuml.sh
           ./scripts/linting/lint-plantuml.sh
         else
-          echo "Error: scripts/linting/lint-plantuml.sh not found"
+          echo "Error: ./scripts/linting/lint-plantuml.sh not found"
           exit 1
         fi
 
     - name: Generate final summary
       if: always()
       run: |
-        if [ -f "scripts/linting/generate-summary.sh" ]; then
-          chmod +x scripts/linting/generate-summary.sh
+        if [ -f "./scripts/linting/generate-summary.sh" ]; then
+          chmod +x ./scripts/linting/generate-summary.sh
           ./scripts/linting/generate-summary.sh
         else
-          echo "Warning: scripts/linting/generate-summary.sh not found, skipping summary generation"
+          echo "Warning: ./scripts/linting/generate-summary.sh not found, skipping summary generation"
         fi
 
     - name: Upload linting artifacts
