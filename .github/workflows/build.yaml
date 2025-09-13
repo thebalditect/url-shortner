@@ -1,11 +1,10 @@
-name: Build Pipeline
+name: CI Pipeline
 
 on:
   push:
     branches: [ "main" ]
   pull_request:
-
-  workflow_dispatch:
+    branches: [ "main" ]
 
 jobs:
   build:
@@ -18,20 +17,21 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.12.7"
+          python-version: "3.12"
 
       - name: Install Poetry
         run: |
-          pip install poetry
+          curl -sSL https://install.python-poetry.org | python3 -
+          echo "$HOME/.local/bin" >> $GITHUB_PATH
 
       - name: Install dependencies
-        run: |
-          poetry install
+        run: poetry install --no-interaction --no-root
 
-      - name: Run linters
-        run: |
-          poetry run ruff check .
+      - name: Run Ruff (lint)
+        run: poetry run ruff check app tests
 
-      - name: Run tests
-        run: |
-          poetry run pytest --maxfail=1 --disable-warnings -q
+      - name: Run Black (format check)
+        run: poetry run black --check app tests
+
+      - name: Run Pytest
+        run: poetry run pytest -v --maxfail=1 --disable-warnings
