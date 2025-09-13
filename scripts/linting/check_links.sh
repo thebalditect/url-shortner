@@ -4,7 +4,7 @@ set -e
 echo "### Link Check Results" >> $GITHUB_STEP_SUMMARY
 
 # Check if config file exists
-CONFIG_FILE="config/.markdown-link-check.json"
+CONFIG_FILE="config/markdown-link-check.json"
 CONFIG_PARAM=""
 if [ -f "$CONFIG_FILE" ]; then
     CONFIG_PARAM="--config $CONFIG_FILE"
