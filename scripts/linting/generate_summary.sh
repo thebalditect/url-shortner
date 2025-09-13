@@ -5,21 +5,21 @@ echo "## Final Results Summary" >> $GITHUB_STEP_SUMMARY
 overall_status=0
 
 # Check environment variables set by the GitHub workflow
-if [ "$MARKDOWN_LINT_FAILED" = "true" ]; then
+if [ "$MARKDOWN_LINT_STATUS" = "failure" ]; then
     echo "Markdown linting failed" >> $GITHUB_STEP_SUMMARY
     overall_status=1
 else
     echo "Markdown linting passed" >> $GITHUB_STEP_SUMMARY
 fi
 
-if [ "$LINK_CHECK_FAILED" = "true" ]; then
+if [ "$LINK_CHECK_STATUS" = "failure" ]; then
     echo "Link checking failed" >> $GITHUB_STEP_SUMMARY
     overall_status=1
 else
     echo "Link checking passed" >> $GITHUB_STEP_SUMMARY
 fi
 
-if [ "$PLANTUML_LINT_FAILED" = "true" ]; then
+if [ "$PLANTUML_STATUS" = "failure" ]; then
     echo "PlantUML validation failed" >> $GITHUB_STEP_SUMMARY
     overall_status=1
 else
