@@ -6,6 +6,7 @@ A simple bash script to create and manage Architecture Decision Records (ADRs) i
 
 1. Copy the `create-adr.sh` script to your repository root
 2. Make it executable:
+
    ```bash
    chmod +x create-adr.sh
    ```
@@ -44,7 +45,8 @@ A simple bash script to create and manage Architecture Decision Records (ADRs) i
 ## File Structure
 
 The script creates files following this pattern:
-```
+
+```text
 docs/
 └── adrs/
     ├── 0001-use-postgresql-for-data-persistence.md
@@ -89,6 +91,7 @@ You can customize the script by modifying these variables at the top:
 ## Error Handling
 
 The script includes validation for:
+
 - Missing or empty parameters
 - Duplicate ADR files
 - Directory creation issues
