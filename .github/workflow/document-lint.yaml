@@ -1,0 +1,100 @@
+name: Documentation Linting Pipeline
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'README.md'
+      - 'docs/**'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'README.md'
+      - 'docs/**'
+
+jobs:
+  lint-documentation:
+    runs-on: ubuntu-latest
+    name: Lint Documentation
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+
+    - name: Setup Java (for PlantUML)
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'temurin'
+        java-version: '11'
+
+    - name: Install dependencies
+      run: |
+        if [ -f "scripts/linting/install-deps.sh" ]; then
+          chmod +x scripts/linting/install-deps.sh
+          ./scripts/linting/install-deps.sh
+        else
+          echo "Warning: scripts/linting/install-deps.sh not found, using default installation"
+          npm install -g markdownlint-cli2 markdown-link-check
+          wget -O plantuml.jar https://github.com/plantuml/plantuml/releases/latest/download/plantuml-1.2024.7.jar
+        fi
+
+    - name: Lint Markdown files
+      id: markdown-lint
+      run: |
+        if [ -f "scripts/linting/lint-markdown.sh" ]; then
+          chmod +x scripts/linting/lint-markdown.sh
+          ./scripts/linting/lint-markdown.sh
+        else
+          echo "Error: scripts/linting/lint-markdown.sh not found"
+          exit 1
+        fi
+
+    - name: Check Markdown links
+      id: link-check
+      run: |
+        if [ -f "scripts/linting/check-links.sh" ]; then
+          chmod +x scripts/linting/check-links.sh
+          ./scripts/linting/check-links.sh
+        else
+          echo "Error: scripts/linting/check-links.sh not found"
+          exit 1
+        fi
+
+    - name: Lint PlantUML files
+      id: plantuml-lint
+      run: |
+        if [ -f "scripts/linting/lint-plantuml.sh" ]; then
+          chmod +x scripts/linting/lint-plantuml.sh
+          ./scripts/linting/lint-plantuml.sh
+        else
+          echo "Error: scripts/linting/lint-plantuml.sh not found"
+          exit 1
+        fi
+
+    - name: Generate final summary
+      if: always()
+      run: |
+        if [ -f "scripts/linting/generate-summary.sh" ]; then
+          chmod +x scripts/linting/generate-summary.sh
+          ./scripts/linting/generate-summary.sh
+        else
+          echo "Warning: scripts/linting/generate-summary.sh not found, skipping summary generation"
+        fi
+
+    - name: Upload linting artifacts
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: linting-results
+        path: |
+          *.log
+          config/
+        retention-days: 30
